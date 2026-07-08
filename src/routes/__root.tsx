@@ -152,6 +152,7 @@ function RootComponent() {
       </div>
       <BackToTop />
       <AiAssistant />
+      <Toaster position="top-center" richColors />
     </QueryClientProvider>
   );
 }
