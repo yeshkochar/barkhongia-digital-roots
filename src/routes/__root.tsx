@@ -16,6 +16,7 @@ import { Footer } from "../components/site/footer";
 import { NoticeTicker } from "../components/site/notice-ticker";
 import { ScrollProgress, BackToTop } from "../components/site/scroll-progress";
 import { AiAssistant } from "../components/site/ai-assistant";
+import { Toaster } from "../components/ui/sonner";
 
 function NotFoundComponent() {
   return (
