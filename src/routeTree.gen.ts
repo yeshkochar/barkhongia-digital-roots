@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as StudentCornerRouteImport } from './routes/student-corner'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as PrincipalRouteImport } from './routes/principal'
 import { Route as ParentCornerRouteImport } from './routes/parent-corner'
 import { Route as NoticesRouteImport } from './routes/notices'
@@ -27,6 +28,11 @@ import { Route as IndexRouteImport } from './routes/index'
 const StudentCornerRoute = StudentCornerRouteImport.update({
   id: '/student-corner',
   path: '/student-corner',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrincipalRoute = PrincipalRouteImport.update({
@@ -109,6 +115,7 @@ export interface FileRoutesByFullPath {
   '/notices': typeof NoticesRoute
   '/parent-corner': typeof ParentCornerRoute
   '/principal': typeof PrincipalRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/student-corner': typeof StudentCornerRoute
 }
 export interface FileRoutesByTo {
@@ -125,6 +132,7 @@ export interface FileRoutesByTo {
   '/notices': typeof NoticesRoute
   '/parent-corner': typeof ParentCornerRoute
   '/principal': typeof PrincipalRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/student-corner': typeof StudentCornerRoute
 }
 export interface FileRoutesById {
@@ -142,6 +150,7 @@ export interface FileRoutesById {
   '/notices': typeof NoticesRoute
   '/parent-corner': typeof ParentCornerRoute
   '/principal': typeof PrincipalRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/student-corner': typeof StudentCornerRoute
 }
 export interface FileRouteTypes {
@@ -160,6 +169,7 @@ export interface FileRouteTypes {
     | '/notices'
     | '/parent-corner'
     | '/principal'
+    | '/sitemap.xml'
     | '/student-corner'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -176,6 +186,7 @@ export interface FileRouteTypes {
     | '/notices'
     | '/parent-corner'
     | '/principal'
+    | '/sitemap.xml'
     | '/student-corner'
   id:
     | '__root__'
@@ -192,6 +203,7 @@ export interface FileRouteTypes {
     | '/notices'
     | '/parent-corner'
     | '/principal'
+    | '/sitemap.xml'
     | '/student-corner'
   fileRoutesById: FileRoutesById
 }
@@ -209,6 +221,7 @@ export interface RootRouteChildren {
   NoticesRoute: typeof NoticesRoute
   ParentCornerRoute: typeof ParentCornerRoute
   PrincipalRoute: typeof PrincipalRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   StudentCornerRoute: typeof StudentCornerRoute
 }
 
@@ -219,6 +232,13 @@ declare module '@tanstack/react-router' {
       path: '/student-corner'
       fullPath: '/student-corner'
       preLoaderRoute: typeof StudentCornerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/principal': {
@@ -329,6 +349,7 @@ const rootRouteChildren: RootRouteChildren = {
   NoticesRoute: NoticesRoute,
   ParentCornerRoute: ParentCornerRoute,
   PrincipalRoute: PrincipalRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   StudentCornerRoute: StudentCornerRoute,
 }
 export const routeTree = rootRouteImport
