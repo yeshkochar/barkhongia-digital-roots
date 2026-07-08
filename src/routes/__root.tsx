@@ -91,15 +91,19 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { name: "author", content: "Barkhongia Higher Secondary School" },
       { name: "theme-color", content: "#0056D2" },
-      { property: "og:title", content: "Barkhongia Higher Secondary School" },
+      { property: "og:title", content: "Barkhongia Higher Secondary School | Khangia, Jorhat, Assam" },
       {
         property: "og:description",
         content:
-          "A government higher secondary school in Khangia, Jorhat, Assam — nurturing knowledge, discipline and excellence since 1986.",
+          "Barkhongia Higher Secondary School, Khangia, Jorhat — a government school established in 1986 offering quality Assamese-medium education for Classes IX–X. Knowledge, Discipline, Excellence.",
       },
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: "Barkhongia Higher Secondary School" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Barkhongia Higher Secondary School | Khangia, Jorhat, Assam" },
+      { name: "twitter:description", content: "Barkhongia Higher Secondary School, Khangia, Jorhat — a government school established in 1986 offering quality Assamese-medium education for Classes IX–X. Knowledge, Discipline, Excellence." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/b64a0605-4612-4dd7-9233-6756568d606c/id-preview-defe1ded--266788c8-fa56-42c5-aff6-d17c8a08100a.lovable.app-1783525597328.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/b64a0605-4612-4dd7-9233-6756568d606c/id-preview-defe1ded--266788c8-fa56-42c5-aff6-d17c8a08100a.lovable.app-1783525597328.png" },
     ],
     links: [
       {
@@ -112,7 +116,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Libre+Franklin:wght@400;500;600;700&display=swap",
       },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
     ],
   }),
   shellComponent: RootShell,
