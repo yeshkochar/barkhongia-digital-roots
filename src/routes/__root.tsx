@@ -11,6 +11,12 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { Navbar } from "../components/site/navbar";
+import { Footer } from "../components/site/footer";
+import { NoticeTicker } from "../components/site/notice-ticker";
+import { ScrollProgress, BackToTop } from "../components/site/scroll-progress";
+import { AiAssistant } from "../components/site/ai-assistant";
+import { Toaster } from "../components/ui/sonner";
 
 function NotFoundComponent() {
   return (
@@ -77,19 +83,34 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "Barkhongia Higher Secondary School | Khangia, Jorhat, Assam" },
+      {
+        name: "description",
+        content:
+          "Barkhongia Higher Secondary School, Khangia, Jorhat — a government school established in 1986 offering quality Assamese-medium education for Classes IX–X. Knowledge, Discipline, Excellence.",
+      },
+      { name: "author", content: "Barkhongia Higher Secondary School" },
+      { name: "theme-color", content: "#0056D2" },
+      { property: "og:title", content: "Barkhongia Higher Secondary School" },
+      {
+        property: "og:description",
+        content:
+          "A government higher secondary school in Khangia, Jorhat, Assam — nurturing knowledge, discipline and excellence since 1986.",
+      },
       { property: "og:type", content: "website" },
+      { property: "og:site_name", content: "Barkhongia Higher Secondary School" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
       {
         rel: "stylesheet",
         href: appCss,
+      },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Libre+Franklin:wght@400;500;600;700&display=swap",
       },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
     ],
@@ -119,8 +140,19 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <ScrollProgress />
+      <div className="flex min-h-dvh flex-col">
+        <Navbar />
+        <NoticeTicker />
+        <main className="flex-1">
+          {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+          <Outlet />
+        </main>
+        <Footer />
+      </div>
+      <BackToTop />
+      <AiAssistant />
+      <Toaster position="top-center" richColors />
     </QueryClientProvider>
   );
 }
