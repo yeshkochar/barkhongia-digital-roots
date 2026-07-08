@@ -9,18 +9,25 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as StudentCornerRouteImport } from './routes/student-corner'
 import { Route as PrincipalRouteImport } from './routes/principal'
 import { Route as NoticesRouteImport } from './routes/notices'
 import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as FacultyRouteImport } from './routes/faculty'
 import { Route as FacilitiesRouteImport } from './routes/facilities'
 import { Route as EventsRouteImport } from './routes/events'
+import { Route as DownloadsRouteImport } from './routes/downloads'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AchievementsRouteImport } from './routes/achievements'
 import { Route as AcademicsRouteImport } from './routes/academics'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 
+const StudentCornerRoute = StudentCornerRouteImport.update({
+  id: '/student-corner',
+  path: '/student-corner',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PrincipalRoute = PrincipalRouteImport.update({
   id: '/principal',
   path: '/principal',
@@ -49,6 +56,11 @@ const FacilitiesRoute = FacilitiesRouteImport.update({
 const EventsRoute = EventsRouteImport.update({
   id: '/events',
   path: '/events',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DownloadsRoute = DownloadsRouteImport.update({
+  id: '/downloads',
+  path: '/downloads',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -83,12 +95,14 @@ export interface FileRoutesByFullPath {
   '/academics': typeof AcademicsRoute
   '/achievements': typeof AchievementsRoute
   '/contact': typeof ContactRoute
+  '/downloads': typeof DownloadsRoute
   '/events': typeof EventsRoute
   '/facilities': typeof FacilitiesRoute
   '/faculty': typeof FacultyRoute
   '/gallery': typeof GalleryRoute
   '/notices': typeof NoticesRoute
   '/principal': typeof PrincipalRoute
+  '/student-corner': typeof StudentCornerRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -96,12 +110,14 @@ export interface FileRoutesByTo {
   '/academics': typeof AcademicsRoute
   '/achievements': typeof AchievementsRoute
   '/contact': typeof ContactRoute
+  '/downloads': typeof DownloadsRoute
   '/events': typeof EventsRoute
   '/facilities': typeof FacilitiesRoute
   '/faculty': typeof FacultyRoute
   '/gallery': typeof GalleryRoute
   '/notices': typeof NoticesRoute
   '/principal': typeof PrincipalRoute
+  '/student-corner': typeof StudentCornerRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -110,12 +126,14 @@ export interface FileRoutesById {
   '/academics': typeof AcademicsRoute
   '/achievements': typeof AchievementsRoute
   '/contact': typeof ContactRoute
+  '/downloads': typeof DownloadsRoute
   '/events': typeof EventsRoute
   '/facilities': typeof FacilitiesRoute
   '/faculty': typeof FacultyRoute
   '/gallery': typeof GalleryRoute
   '/notices': typeof NoticesRoute
   '/principal': typeof PrincipalRoute
+  '/student-corner': typeof StudentCornerRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -125,12 +143,14 @@ export interface FileRouteTypes {
     | '/academics'
     | '/achievements'
     | '/contact'
+    | '/downloads'
     | '/events'
     | '/facilities'
     | '/faculty'
     | '/gallery'
     | '/notices'
     | '/principal'
+    | '/student-corner'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -138,12 +158,14 @@ export interface FileRouteTypes {
     | '/academics'
     | '/achievements'
     | '/contact'
+    | '/downloads'
     | '/events'
     | '/facilities'
     | '/faculty'
     | '/gallery'
     | '/notices'
     | '/principal'
+    | '/student-corner'
   id:
     | '__root__'
     | '/'
@@ -151,12 +173,14 @@ export interface FileRouteTypes {
     | '/academics'
     | '/achievements'
     | '/contact'
+    | '/downloads'
     | '/events'
     | '/facilities'
     | '/faculty'
     | '/gallery'
     | '/notices'
     | '/principal'
+    | '/student-corner'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -165,16 +189,25 @@ export interface RootRouteChildren {
   AcademicsRoute: typeof AcademicsRoute
   AchievementsRoute: typeof AchievementsRoute
   ContactRoute: typeof ContactRoute
+  DownloadsRoute: typeof DownloadsRoute
   EventsRoute: typeof EventsRoute
   FacilitiesRoute: typeof FacilitiesRoute
   FacultyRoute: typeof FacultyRoute
   GalleryRoute: typeof GalleryRoute
   NoticesRoute: typeof NoticesRoute
   PrincipalRoute: typeof PrincipalRoute
+  StudentCornerRoute: typeof StudentCornerRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/student-corner': {
+      id: '/student-corner'
+      path: '/student-corner'
+      fullPath: '/student-corner'
+      preLoaderRoute: typeof StudentCornerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/principal': {
       id: '/principal'
       path: '/principal'
@@ -215,6 +248,13 @@ declare module '@tanstack/react-router' {
       path: '/events'
       fullPath: '/events'
       preLoaderRoute: typeof EventsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/downloads': {
+      id: '/downloads'
+      path: '/downloads'
+      fullPath: '/downloads'
+      preLoaderRoute: typeof DownloadsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -261,12 +301,14 @@ const rootRouteChildren: RootRouteChildren = {
   AcademicsRoute: AcademicsRoute,
   AchievementsRoute: AchievementsRoute,
   ContactRoute: ContactRoute,
+  DownloadsRoute: DownloadsRoute,
   EventsRoute: EventsRoute,
   FacilitiesRoute: FacilitiesRoute,
   FacultyRoute: FacultyRoute,
   GalleryRoute: GalleryRoute,
   NoticesRoute: NoticesRoute,
   PrincipalRoute: PrincipalRoute,
+  StudentCornerRoute: StudentCornerRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
