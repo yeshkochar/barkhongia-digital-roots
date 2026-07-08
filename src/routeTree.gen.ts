@@ -20,6 +20,7 @@ import { Route as FacilitiesRouteImport } from './routes/facilities'
 import { Route as EventsRouteImport } from './routes/events'
 import { Route as DownloadsRouteImport } from './routes/downloads'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AchievementsRouteImport } from './routes/achievements'
 import { Route as AcademicsRouteImport } from './routes/academics'
 import { Route as AboutRouteImport } from './routes/about'
@@ -80,6 +81,11 @@ const ContactRoute = ContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AchievementsRoute = AchievementsRouteImport.update({
   id: '/achievements',
   path: '/achievements',
@@ -106,6 +112,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/academics': typeof AcademicsRoute
   '/achievements': typeof AchievementsRoute
+  '/admin': typeof AdminRoute
   '/contact': typeof ContactRoute
   '/downloads': typeof DownloadsRoute
   '/events': typeof EventsRoute
@@ -123,6 +130,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/academics': typeof AcademicsRoute
   '/achievements': typeof AchievementsRoute
+  '/admin': typeof AdminRoute
   '/contact': typeof ContactRoute
   '/downloads': typeof DownloadsRoute
   '/events': typeof EventsRoute
@@ -141,6 +149,7 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/academics': typeof AcademicsRoute
   '/achievements': typeof AchievementsRoute
+  '/admin': typeof AdminRoute
   '/contact': typeof ContactRoute
   '/downloads': typeof DownloadsRoute
   '/events': typeof EventsRoute
@@ -160,6 +169,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/academics'
     | '/achievements'
+    | '/admin'
     | '/contact'
     | '/downloads'
     | '/events'
@@ -177,6 +187,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/academics'
     | '/achievements'
+    | '/admin'
     | '/contact'
     | '/downloads'
     | '/events'
@@ -194,6 +205,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/academics'
     | '/achievements'
+    | '/admin'
     | '/contact'
     | '/downloads'
     | '/events'
@@ -212,6 +224,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   AcademicsRoute: typeof AcademicsRoute
   AchievementsRoute: typeof AchievementsRoute
+  AdminRoute: typeof AdminRoute
   ContactRoute: typeof ContactRoute
   DownloadsRoute: typeof DownloadsRoute
   EventsRoute: typeof EventsRoute
@@ -304,6 +317,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/achievements': {
       id: '/achievements'
       path: '/achievements'
@@ -340,6 +360,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   AcademicsRoute: AcademicsRoute,
   AchievementsRoute: AchievementsRoute,
+  AdminRoute: AdminRoute,
   ContactRoute: ContactRoute,
   DownloadsRoute: DownloadsRoute,
   EventsRoute: EventsRoute,
@@ -355,3 +376,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

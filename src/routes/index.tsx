@@ -20,6 +20,7 @@ import crest from "@/assets/school-crest.png";
 import gate from "@/assets/unnamed-2.jpg.asset.json";
 import campus from "@/assets/unnamed.jpg.asset.json";
 import campus2 from "@/assets/unnamed-3.jpg.asset.json";
+import { useLanguage } from "@/hooks/use-language";
 
 export const Route = createFileRoute("/")({
   component: Home,
@@ -29,6 +30,8 @@ const pinned = notices.filter((n) => n.pinned);
 const upcoming = events.slice(0, 3);
 
 function Home() {
+  const { language, t } = useLanguage();
+
   return (
     <>
       {/* ---------- HERO ---------- */}
@@ -54,11 +57,11 @@ function Home() {
             <div className="mb-6 flex items-center gap-3">
               <img src={crest} alt="" width={56} height={56} className="size-14 drop-shadow" />
               <div className="text-xs font-semibold uppercase tracking-[0.2em] text-primary-foreground/80">
-                Est. {school.established} · Govt. of Assam
+                {t("estGovtAssam", { est: school.established })}
               </div>
             </div>
             <h1 className="text-balance font-display text-4xl font-semibold leading-[1.03] sm:text-5xl lg:text-6xl">
-              Barkhongia Higher Secondary School
+              {school.name}
             </h1>
             <p className="mt-4 text-lg text-primary-foreground/85">
               {school.location}
@@ -70,7 +73,7 @@ function Home() {
             <div className="mt-9 flex flex-wrap gap-3">
               <Button asChild size="lg" variant="secondary" className="rounded-full">
                 <Link to="/about">
-                  Explore School <ArrowRight className="size-4" />
+                  {t("exploreSchool")} <ArrowRight className="size-4" />
                 </Link>
               </Button>
               <Button
@@ -78,7 +81,7 @@ function Home() {
                 size="lg"
                 className="rounded-full bg-saffron text-saffron-foreground hover:bg-saffron/90"
               >
-                <Link to="/contact">Admissions</Link>
+                <Link to="/contact">{t("admissions")}</Link>
               </Button>
               <Button
                 asChild
@@ -86,7 +89,7 @@ function Home() {
                 variant="outline"
                 className="rounded-full border-primary-foreground/40 bg-transparent text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"
               >
-                <Link to="/gallery">Virtual Tour</Link>
+                <Link to="/gallery">{t("virtualTour")}</Link>
               </Button>
             </div>
           </motion.div>
@@ -128,38 +131,42 @@ function Home() {
               />
             </div>
             <div className="absolute -bottom-6 -right-3 hidden rounded-xl border border-border bg-card px-6 py-4 shadow-[var(--shadow-lift)] sm:block">
-              <div className="font-display text-3xl font-semibold text-primary">39</div>
+              <div className="font-display text-3xl font-semibold text-primary">
+                {language === "as" ? "৩৯" : "39"}
+              </div>
               <div className="text-xs font-medium uppercase tracking-widest text-muted-foreground">
-                Years of service
+                {t("yearsOfService")}
               </div>
             </div>
           </Reveal>
 
           <div>
             <SectionHeading
-              eyebrow="Who we are"
-              title="A neighbourhood school with district-wide ambition"
-              intro="For nearly four decades, Barkhongia Higher Secondary School has been the learning home of Khangia and its surrounding villages. As a government institution under the Department of Education, we combine free, dependable schooling with a genuine culture of care."
+              eyebrow={t("whoWeAre")}
+              title={language === "as" ? "জিলা ব্যাপী উচ্চাকাংক্ষা থকা এখন চুবুৰীয়া বিদ্যালয়" : "A neighbourhood school with district-wide ambition"}
+              intro={language === "as" ? "প্ৰায় চাৰি দশক ধৰি বৰখঙীয়া উচ্চতৰ মাধ্যমিক বিদ্যালয় খঙীয়া আৰু ইয়াৰ কাষৰীয়া গাঁওসমূহৰ শিক্ষাৰ কেন্দ্ৰবিন্দু হৈ আহিছে। শিক্ষা বিভাগৰ অধীনস্থ চৰকাৰী প্ৰতিষ্ঠান হিচাপে আমি এক আন্তৰিক যত্নশীল সংস্কৃতিৰ সৈতে বিনামূলীয়া আৰু নিৰ্ভৰযোগ্য শিক্ষা প্ৰদান কৰিছোঁ।" : "For nearly four decades, Barkhongia Higher Secondary School has been the learning home of Khangia and its surrounding villages. As a government institution under the Department of Education, we combine free, dependable schooling with a genuine culture of care."}
             />
             <div className="mt-8 grid gap-6 sm:grid-cols-2">
               <div>
-                <h3 className="font-display text-lg font-semibold">Our Vision</h3>
+                <h3 className="font-display text-lg font-semibold">{language === "as" ? "আমাৰ লক্ষ্য (Vision)" : "Our Vision"}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                  To be a model rural higher secondary school where every child, regardless of
-                  background, is equipped to think, contribute and lead.
+                  {language === "as"
+                    ? "এখন আদৰ্শ গ্ৰাম্য উচ্চতৰ মাধ্যমিক বিদ্যালয় হোৱা, য’ত প্ৰতিটো শিশুক তেওঁলোকৰ পটভূমি নিৰ্বিশেষে চিন্তা কৰিবলৈ, অৱদান আগবঢ়াবলৈ আৰু নেতৃত্ব দিবলৈ প্ৰস্তুত কৰা হয়।"
+                    : "To be a model rural higher secondary school where every child, regardless of background, is equipped to think, contribute and lead."}
                 </p>
               </div>
               <div>
-                <h3 className="font-display text-lg font-semibold">Our Mission</h3>
+                <h3 className="font-display text-lg font-semibold">{language === "as" ? "আমাৰ উদ্দেশ্য (Mission)" : "Our Mission"}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                  To deliver rigorous, values-driven education in Assamese, blending strong
-                  fundamentals with digital and scientific literacy.
+                  {language === "as"
+                    ? "সবল মৌলিক শিক্ষাৰ সৈতে ডিজিটেল আৰু বৈজ্ঞানিক জ্ঞানৰ সংমিশ্ৰণ ঘটাই অসমীয়া মাধ্যমত এক মূল্যবোধ সম্পন্ন তথা গুণগত শিক্ষা প্ৰদান কৰা।"
+                    : "To deliver rigorous, values-driven education in Assamese, blending strong fundamentals with digital and scientific literacy."}
                 </p>
               </div>
             </div>
             <Button asChild variant="link" className="mt-6 h-auto p-0 text-primary">
               <Link to="/about">
-                Read our full story <ArrowRight className="size-4" />
+                {language === "as" ? "আমাৰ সম্পূৰ্ণ কাহিনী পঢ়ক" : "Read our full story"} <ArrowRight className="size-4" />
               </Link>
             </Button>
           </div>
@@ -170,9 +177,9 @@ function Home() {
       <section className="bg-secondary/40 py-20 lg:py-28">
         <div className="container-editorial">
           <SectionHeading
-            eyebrow="Why families choose us"
-            title="Eight reasons parents trust Barkhongia"
-            intro="Not a list of promises — a description of what happens here every day."
+            eyebrow={language === "as" ? "পৰিয়ালে আমাক কিয় বাচে" : "Why families choose us"}
+            title={t("whyChooseUsTitle")}
+            intro={language === "as" ? "কোনো প্ৰতিশ্ৰুতিৰ তালিকা নহয় — ইয়াত প্ৰতিদিনে কি ঘটি থাকে তাৰ এক চমু আভাস।" : "Not a list of promises — a description of what happens here every day."}
           />
           <div className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
             {whyChooseUs.map((f, i) => {
@@ -198,27 +205,33 @@ function Home() {
         <div className="grid gap-10 rounded-2xl border border-border bg-card p-8 shadow-[var(--shadow-soft)] lg:grid-cols-[1fr_1.6fr] lg:gap-14 lg:p-12">
           <Reveal className="flex flex-col justify-center">
             <div className="mx-auto grid size-40 place-items-center rounded-full bg-gradient-to-br from-primary/15 to-saffron/15 lg:mx-0">
-              <span className="font-display text-5xl font-semibold text-primary">NB</span>
+              <span className="font-display text-5xl font-semibold text-primary">
+                {language === "as" ? "ন.ব" : "NB"}
+              </span>
             </div>
             <div className="mt-5 text-center lg:text-left">
-              <p className="font-display text-xl font-semibold">Dr. Nabajyoti Bora</p>
-              <p className="text-sm text-muted-foreground">Principal</p>
+              <p className="font-display text-xl font-semibold">
+                {language === "as" ? "ড০ নৱজ্যোতি বৰা" : "Dr. Nabajyoti Bora"}
+              </p>
+              <p className="text-sm text-muted-foreground">{t("principalMessageTitle").split("ৰ")[0] || "Principal"}</p>
             </div>
           </Reveal>
           <Reveal delay={0.1}>
-            <span className="eyebrow">Principal's message</span>
+            <span className="eyebrow">{t("principalMessageTitle")}</span>
             <Quote className="mt-4 size-8 text-saffron" />
             <blockquote className="mt-3 text-pretty font-display text-xl leading-relaxed text-foreground sm:text-2xl">
-              "A school is not measured by its buildings, but by the character of the students who
-              walk out of its gates. Here at Barkhongia, we teach our children to read the world
-              with clarity and to serve it with courage."
+              {language === "as"
+                ? '"এখন বিদ্যালয় ইয়াৰ অট্টালিকাৰ দ্বাৰা জোখা নহয়, বৰঞ্চ ইয়াৰ দুৱাৰেৰে ওলাই যোৱা ছাত্ৰ-ছাত্ৰীৰ চৰিত্ৰৰ দ্বাৰাহে জুখিব পাৰি। বৰখঙীয়াৰ চোতালত আমি আমাৰ সন্তানসকলক জগতখনক স্পষ্টকৈ পঢ়িবলৈ আৰু সাহসেৰে সেৱা কৰিবলৈ শিক্ষা দিওঁ।"'
+                : '"A school is not measured by its buildings, but by the character of the students who walk out of its gates. Here at Barkhongia, we teach our children to read the world with clarity and to serve it with courage."'}
             </blockquote>
             <p className="mt-6 text-sm leading-relaxed text-muted-foreground">
-              We invite you to know our teachers, our results and, most of all, our students.
+              {language === "as"
+                ? "আমাৰ শিক্ষকসকলক, আমাৰ পৰীক্ষাৰ ফলাফল আৰু আটাইতকৈ গুৰুত্বপূৰ্ণভাৱে আমাৰ ছাত্ৰ-ছাত্ৰীসকলক জানিবলৈ আমি আপোনাক আমন্ত্ৰণ জনাইছোঁ।"
+                : "We invite you to know our teachers, our results and, most of all, our students."}
             </p>
             <Button asChild variant="link" className="mt-4 h-auto p-0 text-primary">
               <Link to="/principal">
-                Read the full message <ArrowRight className="size-4" />
+                {language === "as" ? "সম্পূৰ্ণ বাৰ্তা পঢ়ক" : "Read the full message"} <ArrowRight className="size-4" />
               </Link>
             </Button>
           </Reveal>
@@ -229,13 +242,14 @@ function Home() {
       <section className="bg-primary text-primary-foreground">
         <div className="container-editorial grid gap-12 py-20 lg:grid-cols-2 lg:gap-20 lg:py-28">
           <Reveal>
-            <span className="eyebrow text-saffron">Academics</span>
+            <span className="eyebrow text-saffron">{language === "as" ? "শৈক্ষিক" : "Academics"}</span>
             <h2 className="mt-4 text-3xl font-semibold sm:text-4xl">
-              A focused curriculum for Classes IX & X
+              {language === "as" ? "নৱম আৰু দশম শ্ৰেণীৰ বাবে এক সুনিৰ্দিষ্ট পাঠ্যক্ৰম" : "A focused curriculum for Classes IX & X"}
             </h2>
             <p className="mt-4 text-primary-foreground/80">
-              Taught in Assamese with English as a core language, our programme builds the
-              fundamentals that carry students into higher study and life.
+              {language === "as"
+                ? "ইংৰাজীক এক মুখ্য বিষয় হিচাপে লৈ অসমীয়া মাধ্যমত শিক্ষা প্ৰদান কৰা আমাৰ পাঠ্যক্ৰমে শিক্ষাৰ্থীসকলক উচ্চ শিক্ষা আৰু জীৱনৰ বাবে প্ৰস্তুত কৰে।"
+                : "Taught in Assamese with English as a core language, our programme builds the fundamentals that carry students into higher study and life."}
             </p>
             <ul className="mt-8 space-y-3">
               {subjects.map((s) => (
@@ -247,14 +261,16 @@ function Home() {
             </ul>
             <Button asChild variant="secondary" className="mt-8 rounded-full">
               <Link to="/academics">
-                View academics <ArrowRight className="size-4" />
+                {language === "as" ? "শৈক্ষিক দিশসমূহ চাওক" : "View academics"} <ArrowRight className="size-4" />
               </Link>
             </Button>
           </Reveal>
 
           <Reveal delay={0.1}>
-            <span className="eyebrow text-saffron">Facilities</span>
-            <h2 className="mt-4 text-3xl font-semibold sm:text-4xl">Everything a learner needs</h2>
+            <span className="eyebrow text-saffron">{language === "as" ? "সুবিধাসমূহ" : "Facilities"}</span>
+            <h2 className="mt-4 text-3xl font-semibold sm:text-4xl">
+              {language === "as" ? "এজন শিক্ষাৰ্থীৰ বাবে প্ৰয়োজনীয় সকলোখিনি" : "Everything a learner needs"}
+            </h2>
             <div className="mt-8 grid grid-cols-2 gap-3">
               {facilities.map((f) => {
                 const Icon = (Icons[f.icon as keyof typeof Icons] as Icons.LucideIcon) ?? Icons.Check;
@@ -275,7 +291,7 @@ function Home() {
               className="mt-8 rounded-full border-primary-foreground/40 bg-transparent text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"
             >
               <Link to="/facilities">
-                Tour facilities <ArrowRight className="size-4" />
+                {language === "as" ? "সুবিধাসমূহ চাওক" : "Tour facilities"} <ArrowRight className="size-4" />
               </Link>
             </Button>
           </Reveal>
@@ -287,9 +303,11 @@ function Home() {
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
           <div>
             <div className="flex items-end justify-between">
-              <SectionHeading eyebrow="Notice board" title="Latest notices" />
+              <SectionHeading eyebrow={t("noticeBoard")} title={t("latestNoticesTitle")} />
               <Button asChild variant="link" className="h-auto p-0 text-primary">
-                <Link to="/notices">All notices</Link>
+                <Link to="/notices">
+                  {language === "as" ? "সকলো জাননী" : "All notices"}
+                </Link>
               </Button>
             </div>
             <ul className="mt-8 space-y-2">
@@ -305,14 +323,14 @@ function Home() {
                     <div className="min-w-0 flex-1">
                       <p className="truncate text-sm font-medium text-foreground">{n.title}</p>
                       <p className="mt-1 text-xs text-muted-foreground">
-                        {new Date(n.date).toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" })}
+                        {new Date(n.date).toLocaleDateString(language === "as" ? "as-IN" : "en-IN", { day: "numeric", month: "long", year: "numeric" })}
                         {" · "}
                         {n.category}
                       </p>
                     </div>
                     {n.pinned && (
                       <span className="rounded-full bg-saffron/15 px-2 py-0.5 text-[0.65rem] font-semibold uppercase tracking-wide text-saffron-foreground">
-                        Pinned
+                        {language === "as" ? "গুৰুত্বপূৰ্ণ" : "Pinned"}
                       </span>
                     )}
                   </Link>
@@ -323,9 +341,11 @@ function Home() {
 
           <div>
             <div className="flex items-end justify-between">
-              <SectionHeading eyebrow="What's on" title="Upcoming events" />
+              <SectionHeading eyebrow={language === "as" ? "কি চলি আছে" : "What's on"} title={t("upcomingEventsTitle")} />
               <Button asChild variant="link" className="h-auto p-0 text-primary">
-                <Link to="/events">Full calendar</Link>
+                <Link to="/events">
+                  {language === "as" ? "সম্পূৰ্ণ দিনপঞ্জী" : "Full calendar"}
+                </Link>
               </Button>
             </div>
             <div className="mt-8 space-y-4">
@@ -335,9 +355,11 @@ function Home() {
                   <Reveal key={e.title} delay={i * 0.05}>
                     <div className="flex gap-4 rounded-lg border border-border bg-card p-4">
                       <div className="grid w-16 shrink-0 place-items-center rounded-md bg-primary text-primary-foreground">
-                        <span className="text-xl font-semibold">{d.getDate()}</span>
+                        <span className="text-xl font-semibold">
+                          {d.toLocaleDateString(language === "as" ? "as-IN" : "en-IN", { day: "numeric" })}
+                        </span>
                         <span className="text-[0.65rem] font-semibold uppercase tracking-widest">
-                          {d.toLocaleString("en-IN", { month: "short" })}
+                          {d.toLocaleString(language === "as" ? "as-IN" : "en-IN", { month: "short" })}
                         </span>
                       </div>
                       <div>
@@ -363,9 +385,11 @@ function Home() {
       <section className="bg-secondary/40 py-20 lg:py-28">
         <div className="container-editorial">
           <div className="flex items-end justify-between">
-            <SectionHeading eyebrow="Campus life" title="A glimpse of Barkhongia" />
+            <SectionHeading eyebrow={language === "as" ? "চৌহদৰ জীৱন" : "Campus life"} title={language === "as" ? "বৰখঙীয়াৰ এক চমু আভাস" : "A glimpse of Barkhongia"} />
             <Button asChild variant="link" className="h-auto p-0 text-primary">
-              <Link to="/gallery">Open gallery</Link>
+              <Link to="/gallery">
+                {language === "as" ? "গেলাৰী খোলক" : "Open gallery"}
+              </Link>
             </Button>
           </div>
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -391,8 +415,8 @@ function Home() {
       <section className="container-editorial py-20 lg:py-28">
         <SectionHeading
           align="center"
-          eyebrow="In their words"
-          title="Voices from our community"
+          eyebrow={language === "as" ? "তেওঁলোকৰ ভাষাত" : "In their words"}
+          title={t("whatOurCommunitySays")}
         />
         <div className="mt-12">
           <Testimonials />
@@ -405,15 +429,20 @@ function Home() {
           <div className="tricolour absolute inset-x-0 top-0 h-1" />
           <Reveal>
             <h2 className="mx-auto max-w-2xl text-balance text-3xl font-semibold sm:text-4xl">
-              Give your child a start rooted in knowledge and character
+              {language === "as"
+                ? "আপোনাৰ সন্তানক জ্ঞান আৰু চৰিত্ৰৰে পৰিপূৰ্ণ এক সুন্দৰ আৰম্ভণি দিয়ক"
+                : "Give your child a start rooted in knowledge and character"}
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-primary-foreground/80">
-              Admissions for the {school.session} session are open. Talk to our office or send an
-              enquiry — we'd love to welcome your family.
+              {language === "as"
+                ? `${school.session} বৰ্ষৰ নামভৰ্তি এতিয়া মুকলি। আমাৰ কাৰ্যালয়ৰ সৈতে কথা পাতক অথবা সোধা-পোছা কৰক — আপোনাৰ পৰিয়ালক স্বাগতম জনাবলৈ আমি উৎসাহিত।`
+                : `Admissions for the ${school.session} session are open. Talk to our office or send an enquiry — we'd love to welcome your family.`}
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               <Button asChild size="lg" variant="secondary" className="rounded-full">
-                <Link to="/contact">Enquire about admissions</Link>
+                <Link to="/contact">
+                  {language === "as" ? "নামভৰ্তিৰ বাবে সোধা-পোছা কৰক" : "Enquire about admissions"}
+                </Link>
               </Button>
               <Button
                 asChild
@@ -421,7 +450,9 @@ function Home() {
                 variant="outline"
                 className="rounded-full border-primary-foreground/40 bg-transparent text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"
               >
-                <Link to="/downloads">Download forms</Link>
+                <Link to="/downloads">
+                  {language === "as" ? "ফৰ্মসমূহ ডাউনলোড কৰক" : "Download forms"}
+                </Link>
               </Button>
             </div>
           </Reveal>

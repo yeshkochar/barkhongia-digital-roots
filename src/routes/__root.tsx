@@ -17,6 +17,7 @@ import { NoticeTicker } from "../components/site/notice-ticker";
 import { ScrollProgress, BackToTop } from "../components/site/scroll-progress";
 import { AiAssistant } from "../components/site/ai-assistant";
 import { Toaster } from "../components/ui/sonner";
+import { LanguageProvider } from "../hooks/use-language";
 
 function NotFoundComponent() {
   return (
@@ -143,19 +144,21 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ScrollProgress />
-      <div className="flex min-h-dvh flex-col">
-        <Navbar />
-        <NoticeTicker />
-        <main className="flex-1">
-          {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-          <Outlet />
-        </main>
-        <Footer />
-      </div>
-      <BackToTop />
-      <AiAssistant />
-      <Toaster position="top-center" richColors />
+      <LanguageProvider>
+        <ScrollProgress />
+        <div className="flex min-h-dvh flex-col">
+          <Navbar />
+          <NoticeTicker />
+          <main className="flex-1">
+            {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+            <Outlet />
+          </main>
+          <Footer />
+        </div>
+        <BackToTop />
+        <AiAssistant />
+        <Toaster position="top-center" richColors />
+      </LanguageProvider>
     </QueryClientProvider>
   );
 }

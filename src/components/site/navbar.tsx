@@ -8,11 +8,13 @@ import { SearchCommand } from "./search-command";
 import { nav, school } from "@/lib/site-data";
 import crest from "@/assets/school-crest.png";
 import { cn } from "@/lib/utils";
+import { useLanguage } from "@/hooks/use-language";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const { language, setLanguage, t } = useLanguage();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -35,10 +37,10 @@ export function Navbar() {
           <img src={crest} alt="" width={44} height={44} className="size-10 lg:size-11" />
           <span className="flex flex-col leading-none">
             <span className="font-display text-[0.98rem] font-semibold tracking-tight text-foreground lg:text-lg">
-              Barkhongia
+              {language === "as" ? "বৰখঙীয়া" : "Barkhongia"}
             </span>
             <span className="text-[0.62rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-              Higher Secondary School
+              {language === "as" ? "উচ্চতৰ মাধ্যমিক বিদ্যালয়" : "Higher Secondary School"}
             </span>
           </span>
         </Link>
@@ -66,8 +68,20 @@ export function Navbar() {
         <div className="ml-auto flex items-center gap-1 xl:ml-2">
           <SearchCommand />
           <ThemeToggle />
+          
+          {/* Language Switcher */}
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => setLanguage(language === "en" ? "as" : "en")}
+            className="h-9 px-2 font-medium text-xs rounded-md text-foreground/80 hover:text-foreground mr-1"
+            aria-label={t("langToggle")}
+          >
+            {language === "en" ? "অসমীয়া" : "English"}
+          </Button>
+
           <Button asChild variant="default" className="ml-1 hidden rounded-full sm:inline-flex">
-            <Link to="/contact">Admissions</Link>
+            <Link to="/contact">{t("admissions")}</Link>
           </Button>
 
           <Sheet open={open} onOpenChange={setOpen}>
@@ -80,7 +94,7 @@ export function Navbar() {
               <SheetTitle className="sr-only">Navigation</SheetTitle>
               <div className="flex items-center gap-3 border-b border-border p-5">
                 <img src={crest} alt="" width={36} height={36} className="size-9" />
-                <span className="font-display text-base font-semibold">Barkhongia HS</span>
+                <span className="font-display text-base font-semibold">{school.shortName}</span>
               </div>
               <nav className="flex flex-col p-2">
                 {nav.map((item) => {
@@ -101,8 +115,24 @@ export function Navbar() {
                   );
                 })}
                 <Button asChild className="mt-3 rounded-full">
-                  <Link to="/contact" onClick={() => setOpen(false)}>Admissions Enquiry</Link>
+                  <Link to="/contact" onClick={() => setOpen(false)}>{t("admissionsEnquiry")}</Link>
                 </Button>
+                
+                {/* Language Switcher in Mobile Drawer */}
+                <div className="mt-4 border-t border-border pt-4 px-3 flex items-center justify-between">
+                  <span className="text-xs text-muted-foreground">{t("langToggle")}</span>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => {
+                      setLanguage(language === "en" ? "as" : "en");
+                      setOpen(false);
+                    }}
+                    className="h-8 rounded-full text-xs font-semibold px-3"
+                  >
+                    {language === "en" ? "অসমীয়া" : "English"}
+                  </Button>
+                </div>
               </nav>
             </SheetContent>
           </Sheet>
