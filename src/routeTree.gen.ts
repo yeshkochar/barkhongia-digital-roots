@@ -10,9 +10,11 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as PrincipalRouteImport } from './routes/principal'
+import { Route as NoticesRouteImport } from './routes/notices'
 import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as FacultyRouteImport } from './routes/faculty'
 import { Route as FacilitiesRouteImport } from './routes/facilities'
+import { Route as EventsRouteImport } from './routes/events'
 import { Route as AchievementsRouteImport } from './routes/achievements'
 import { Route as AcademicsRouteImport } from './routes/academics'
 import { Route as AboutRouteImport } from './routes/about'
@@ -21,6 +23,11 @@ import { Route as IndexRouteImport } from './routes/index'
 const PrincipalRoute = PrincipalRouteImport.update({
   id: '/principal',
   path: '/principal',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NoticesRoute = NoticesRouteImport.update({
+  id: '/notices',
+  path: '/notices',
   getParentRoute: () => rootRouteImport,
 } as any)
 const GalleryRoute = GalleryRouteImport.update({
@@ -36,6 +43,11 @@ const FacultyRoute = FacultyRouteImport.update({
 const FacilitiesRoute = FacilitiesRouteImport.update({
   id: '/facilities',
   path: '/facilities',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EventsRoute = EventsRouteImport.update({
+  id: '/events',
+  path: '/events',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AchievementsRoute = AchievementsRouteImport.update({
@@ -64,9 +76,11 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/academics': typeof AcademicsRoute
   '/achievements': typeof AchievementsRoute
+  '/events': typeof EventsRoute
   '/facilities': typeof FacilitiesRoute
   '/faculty': typeof FacultyRoute
   '/gallery': typeof GalleryRoute
+  '/notices': typeof NoticesRoute
   '/principal': typeof PrincipalRoute
 }
 export interface FileRoutesByTo {
@@ -74,9 +88,11 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/academics': typeof AcademicsRoute
   '/achievements': typeof AchievementsRoute
+  '/events': typeof EventsRoute
   '/facilities': typeof FacilitiesRoute
   '/faculty': typeof FacultyRoute
   '/gallery': typeof GalleryRoute
+  '/notices': typeof NoticesRoute
   '/principal': typeof PrincipalRoute
 }
 export interface FileRoutesById {
@@ -85,9 +101,11 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/academics': typeof AcademicsRoute
   '/achievements': typeof AchievementsRoute
+  '/events': typeof EventsRoute
   '/facilities': typeof FacilitiesRoute
   '/faculty': typeof FacultyRoute
   '/gallery': typeof GalleryRoute
+  '/notices': typeof NoticesRoute
   '/principal': typeof PrincipalRoute
 }
 export interface FileRouteTypes {
@@ -97,9 +115,11 @@ export interface FileRouteTypes {
     | '/about'
     | '/academics'
     | '/achievements'
+    | '/events'
     | '/facilities'
     | '/faculty'
     | '/gallery'
+    | '/notices'
     | '/principal'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -107,9 +127,11 @@ export interface FileRouteTypes {
     | '/about'
     | '/academics'
     | '/achievements'
+    | '/events'
     | '/facilities'
     | '/faculty'
     | '/gallery'
+    | '/notices'
     | '/principal'
   id:
     | '__root__'
@@ -117,9 +139,11 @@ export interface FileRouteTypes {
     | '/about'
     | '/academics'
     | '/achievements'
+    | '/events'
     | '/facilities'
     | '/faculty'
     | '/gallery'
+    | '/notices'
     | '/principal'
   fileRoutesById: FileRoutesById
 }
@@ -128,9 +152,11 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   AcademicsRoute: typeof AcademicsRoute
   AchievementsRoute: typeof AchievementsRoute
+  EventsRoute: typeof EventsRoute
   FacilitiesRoute: typeof FacilitiesRoute
   FacultyRoute: typeof FacultyRoute
   GalleryRoute: typeof GalleryRoute
+  NoticesRoute: typeof NoticesRoute
   PrincipalRoute: typeof PrincipalRoute
 }
 
@@ -141,6 +167,13 @@ declare module '@tanstack/react-router' {
       path: '/principal'
       fullPath: '/principal'
       preLoaderRoute: typeof PrincipalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/notices': {
+      id: '/notices'
+      path: '/notices'
+      fullPath: '/notices'
+      preLoaderRoute: typeof NoticesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/gallery': {
@@ -162,6 +195,13 @@ declare module '@tanstack/react-router' {
       path: '/facilities'
       fullPath: '/facilities'
       preLoaderRoute: typeof FacilitiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/events': {
+      id: '/events'
+      path: '/events'
+      fullPath: '/events'
+      preLoaderRoute: typeof EventsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/achievements': {
@@ -200,9 +240,11 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   AcademicsRoute: AcademicsRoute,
   AchievementsRoute: AchievementsRoute,
+  EventsRoute: EventsRoute,
   FacilitiesRoute: FacilitiesRoute,
   FacultyRoute: FacultyRoute,
   GalleryRoute: GalleryRoute,
+  NoticesRoute: NoticesRoute,
   PrincipalRoute: PrincipalRoute,
 }
 export const routeTree = rootRouteImport
