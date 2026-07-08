@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as StudentCornerRouteImport } from './routes/student-corner'
 import { Route as PrincipalRouteImport } from './routes/principal'
+import { Route as ParentCornerRouteImport } from './routes/parent-corner'
 import { Route as NoticesRouteImport } from './routes/notices'
 import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as FacultyRouteImport } from './routes/faculty'
@@ -31,6 +32,11 @@ const StudentCornerRoute = StudentCornerRouteImport.update({
 const PrincipalRoute = PrincipalRouteImport.update({
   id: '/principal',
   path: '/principal',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ParentCornerRoute = ParentCornerRouteImport.update({
+  id: '/parent-corner',
+  path: '/parent-corner',
   getParentRoute: () => rootRouteImport,
 } as any)
 const NoticesRoute = NoticesRouteImport.update({
@@ -101,6 +107,7 @@ export interface FileRoutesByFullPath {
   '/faculty': typeof FacultyRoute
   '/gallery': typeof GalleryRoute
   '/notices': typeof NoticesRoute
+  '/parent-corner': typeof ParentCornerRoute
   '/principal': typeof PrincipalRoute
   '/student-corner': typeof StudentCornerRoute
 }
@@ -116,6 +123,7 @@ export interface FileRoutesByTo {
   '/faculty': typeof FacultyRoute
   '/gallery': typeof GalleryRoute
   '/notices': typeof NoticesRoute
+  '/parent-corner': typeof ParentCornerRoute
   '/principal': typeof PrincipalRoute
   '/student-corner': typeof StudentCornerRoute
 }
@@ -132,6 +140,7 @@ export interface FileRoutesById {
   '/faculty': typeof FacultyRoute
   '/gallery': typeof GalleryRoute
   '/notices': typeof NoticesRoute
+  '/parent-corner': typeof ParentCornerRoute
   '/principal': typeof PrincipalRoute
   '/student-corner': typeof StudentCornerRoute
 }
@@ -149,6 +158,7 @@ export interface FileRouteTypes {
     | '/faculty'
     | '/gallery'
     | '/notices'
+    | '/parent-corner'
     | '/principal'
     | '/student-corner'
   fileRoutesByTo: FileRoutesByTo
@@ -164,6 +174,7 @@ export interface FileRouteTypes {
     | '/faculty'
     | '/gallery'
     | '/notices'
+    | '/parent-corner'
     | '/principal'
     | '/student-corner'
   id:
@@ -179,6 +190,7 @@ export interface FileRouteTypes {
     | '/faculty'
     | '/gallery'
     | '/notices'
+    | '/parent-corner'
     | '/principal'
     | '/student-corner'
   fileRoutesById: FileRoutesById
@@ -195,6 +207,7 @@ export interface RootRouteChildren {
   FacultyRoute: typeof FacultyRoute
   GalleryRoute: typeof GalleryRoute
   NoticesRoute: typeof NoticesRoute
+  ParentCornerRoute: typeof ParentCornerRoute
   PrincipalRoute: typeof PrincipalRoute
   StudentCornerRoute: typeof StudentCornerRoute
 }
@@ -213,6 +226,13 @@ declare module '@tanstack/react-router' {
       path: '/principal'
       fullPath: '/principal'
       preLoaderRoute: typeof PrincipalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/parent-corner': {
+      id: '/parent-corner'
+      path: '/parent-corner'
+      fullPath: '/parent-corner'
+      preLoaderRoute: typeof ParentCornerRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/notices': {
@@ -307,6 +327,7 @@ const rootRouteChildren: RootRouteChildren = {
   FacultyRoute: FacultyRoute,
   GalleryRoute: GalleryRoute,
   NoticesRoute: NoticesRoute,
+  ParentCornerRoute: ParentCornerRoute,
   PrincipalRoute: PrincipalRoute,
   StudentCornerRoute: StudentCornerRoute,
 }
